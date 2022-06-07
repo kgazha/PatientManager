@@ -14,8 +14,6 @@ namespace PatientManager
             CalculateTheExecutionTime(() => manager.GetPatientsFirstCase(testDate));
             CalculateTheExecutionTime(() => manager.GetPatientsSecondCase(testDate));
             CalculateTheExecutionTime(() => manager.GetPatientsThirdCase(testDate));
-
-            Console.WriteLine();
         }
 
         public static void CalculateTheExecutionTime(Action action)
@@ -33,14 +31,12 @@ namespace PatientManager
             {
                 Task.WaitAny(new[] { task }, cancellationToken);
                 Console.WriteLine($"{action.Method.Name} : {DateTime.Now - start}");
+                Console.WriteLine("-------");
             }
             catch (OperationCanceledException e)
             {
                 Console.WriteLine($"{action.Method.Name} is too slow. Time has passed {DateTime.Now - start}");
                 Console.WriteLine(e.Message);
-            }
-            finally
-            {
                 Console.WriteLine("-------");
             }
         }
